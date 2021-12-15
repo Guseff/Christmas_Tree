@@ -1,14 +1,13 @@
 {
-  "name": "Christmas",
+  "name": "christmas",
   "version": "1.1.0",
   "description": "",
   "private": true,
   "scripts": {
     "start": "webpack-dev-server --open --config ./webpack.config.js",
-    "lint": "eslint ./src/**/*.tsx --fix",
-    "lint-js": "eslint ./src/**/*.ts --fix"
+    "lint": "eslint ./src/**/*.ts --fix"
   },
-  "author": "Vasily and Alex Gusev",
+  "author": "Vasily Gusev",
   "license": "ISC",
   "dependencies": {
     "css-loader": "^6.5.1",
