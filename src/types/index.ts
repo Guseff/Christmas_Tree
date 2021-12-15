@@ -1,3 +1,9 @@
+export enum ESize {
+  big = 'Big',
+  middle = 'Middle',
+  small = 'Small',
+}
+
 export type TCard = {
   num: number;
   name: string;
@@ -5,7 +11,7 @@ export type TCard = {
   year?: number;
   shape?: string;
   color?: string;
-  size?: string;
+  size?: ESize;
   favorite?: boolean;
 };
 
