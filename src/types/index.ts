@@ -4,18 +4,31 @@ export enum ESize {
   small = 'Small',
 }
 
-export type TCard = {
-  num: number;
+export type TDataItem = {
+  num: string;
   name: string;
-  count?: number;
-  year?: number;
-  shape?: string;
-  color?: string;
-  size?: ESize;
-  favorite?: boolean;
+  count: string;
+  year: string;
+  shape: string;
+  color: string;
+  size: string;
+  favorite: boolean;
 };
 
-export type TState = {
-  data: TCard[];
-  filtered: TCard[];
+export type TCard = {
+  id: string;
+  index: number;
+  name: string;
+  count: number;
+  year: number;
+  shape: string;
+  color: string;
+  size: string;
+  favorite: boolean;
+};
+
+export type TFilters = {
+  minQtyFilter: number,
+  maxQtyFilter: number,
+  onlyFavorites: boolean,
 };
