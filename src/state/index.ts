@@ -1,11 +1,13 @@
-import { TCard, TFilters, TDataItem } from '../types';
+import { TCard, TFilters, TDataItem, EShape, EColor, ESize, EPage } from '../types';
 import response from '../data/data.json';
+import { FAVORITES_MAX_QTY } from '../consts';
 
 export class State {
   data: TCard[];
   filtered: TCard[];
   filters: TFilters;
   favorites: number;
+  currentPage: EPage;
 
   constructor() {
     this.data = response.map((item: TDataItem) => ({
@@ -14,17 +16,53 @@ export class State {
       name: item.name,
       count: parseInt(item.count, 10),
       year: parseInt(item.year, 10),
-      shape: item.shape,
-      color: item.color,
-      size: item.size,
+      shape: item.shape as EShape,
+      color: item.color as EColor,
+      size: item.size as ESize,
       favorite: item.favorite,
     }));
     this.filtered = this.data;
-    this.favorites = response.filter((item: TDataItem) => item.favorite).length;
+    this.favorites = this.data.filter((item: TCard) => item.favorite).length;
     this.filters = {
-      minQtyFilter: 0,
-      maxQtyFilter: 20,
+      minQty: 0,
+      maxQty: 20,
+      minYear: 1940,
+      maxYear: 2020,
       onlyFavorites: false,
+      shape: Object.values(EShape),
+      size: Object.values(ESize),
+      color: Object.values(EColor),
     };
+    this.currentPage = EPage.Filters;
   }
-}
+
+  filtering() {
+    this.filtered = this.data
+      .filter((card) => card.year >= this.filters.minYear && card.year <= this.filters.maxYear)
+      .filter((card) => this.filters.onlyFavorites ? card.favorite : card )
+      .filter((card) => this.filters.color.includes(card.color));
+  }
+
+  setColor(arr: EColor[]) {
+    this.filters.color = arr;
+  }
+
+  setOnlyFavorites(value: boolean) {
+    this.filters.onlyFavorites = value;
+  }
+
+  setFavorite(index: number) {
+    if (this.favorites === FAVORITES_MAX_QTY && this.data[index].favorite === false) {
+      return;
+    }
+
+    this.data[index].favorite = !this.data[index].favorite;
+    this.favorites = this.data.filter((item: TCard) => item.favorite).length;
+    this.filtering();
+  }
+
+  setCurrentPage(page: EPage) {
+    this.currentPage = page;
+    console.log(this.currentPage);
+  }
+};

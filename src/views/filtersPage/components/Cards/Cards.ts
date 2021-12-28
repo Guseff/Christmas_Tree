@@ -1,7 +1,7 @@
 import { TCard } from '../../../../types';
 import { Card } from '../../../../components/Card/Card';
 
-export const Cards = (data: TCard[]) => {
+export const Cards = (data: TCard[], callback: Function): HTMLElement => {
   const wrapper = document.createElement('main');
   wrapper.classList.add('cards-container');
 
@@ -14,10 +14,14 @@ export const Cards = (data: TCard[]) => {
   render();
   
   wrapper.addEventListener('click', (e: Event) => {
-    const id = parseInt((e.target as Element).closest('.card-toy')!.id, 10);
-    data[id - 1].favorite = !data[id - 1].favorite;
-  
-    render();
+    const target = (e.target as Element).closest('.card-toy');
+
+    if (target) {
+      const index = parseInt(target.id, 10) - 1;
+    
+      callback(index);
+      render();
+    }
   });
   
   return wrapper;

@@ -1,8 +1,29 @@
+export enum EPage {
+  Main,
+  Filters,
+};
+
 export enum ESize {
-  big = 'Big',
-  middle = 'Middle',
-  small = 'Small',
-}
+  big = 'большой',
+  middle = 'средний',
+  small = 'малый',
+};
+
+export enum EColor {
+  yellow = 'желтый',
+  green = 'зелёный',
+  red = 'красный',
+  white = 'белый',
+  blue = 'синий',
+};
+
+export enum EShape {
+  ball = 'шар',
+  cone = 'шишка',
+  bell = 'колокольчик',
+  curve = 'фигурка',
+  flake = 'снежинка',
+};
 
 export type TDataItem = {
   num: string;
@@ -21,14 +42,19 @@ export type TCard = {
   name: string;
   count: number;
   year: number;
-  shape: string;
-  color: string;
-  size: string;
+  shape: EShape;
+  color: EColor;
+  size: ESize;
   favorite: boolean;
 };
 
 export type TFilters = {
-  minQtyFilter: number,
-  maxQtyFilter: number,
+  minQty: number,
+  maxQty: number,
+  maxYear: number,
+  minYear: number,
   onlyFavorites: boolean,
+  shape: EShape[],
+  size: ESize[],
+  color: EColor[],
 };
