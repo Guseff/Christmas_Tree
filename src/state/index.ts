@@ -5,6 +5,7 @@ import { FAVORITES_MAX_QTY } from '../consts';
 export class State {
   data: TCard[];
   filtered: TCard[];
+  forRender: TCard[];
   filters: TFilters;
   favorites: number;
   currentPage: EPage;
@@ -34,6 +35,7 @@ export class State {
       color: Object.values(EColor),
     };
     this.currentPage = EPage.Filters;
+    this.forRender = [];
   }
 
   filtering() {
@@ -41,6 +43,10 @@ export class State {
       .filter((card) => card.year >= this.filters.minYear && card.year <= this.filters.maxYear)
       .filter((card) => this.filters.onlyFavorites ? card.favorite : card )
       .filter((card) => this.filters.color.includes(card.color));
+  }
+
+  setForRender() {
+    this.forRender = this.filtered.filter((card) => this.filters.onlyFavorites ? card.favorite : card );
   }
 
   setColor(arr: EColor[]) {
